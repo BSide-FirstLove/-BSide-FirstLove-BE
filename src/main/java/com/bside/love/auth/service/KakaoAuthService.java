@@ -29,11 +29,9 @@ public class KakaoAuthService {
         User kakaoMember = clientKakao.getUserData(authRequest.getAccessToken());
         String socialId = kakaoMember.getSocialId();
 
-
         JwtToken appToken = jwtTokenProvider.createUserAppToken(socialId);
 
-        // TODO socialId 회원조회, 조회없을경우 회원저장
-        User user = null;
+        User user = userRepository.findBySocialId(socialId);
         if (ObjectUtils.isEmpty(user)) {
             userRepository.save(kakaoMember);
             return AuthResponse.builder()
