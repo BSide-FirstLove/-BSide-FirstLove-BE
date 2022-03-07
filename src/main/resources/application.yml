@@ -7,11 +7,6 @@ server:
       enabled: true
 
 spring:
-  mvc:
-    view:
-      prefix: /WEB-INF/views/
-      suffix: .jsp
-
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/first_love?serverTimezone=Asia/Seoul
@@ -29,6 +24,11 @@ spring:
   jackson:
     serialization:
       fail-on-empty-beans: false
+
+jwt:
+  header: Authorization
+  secret: bWUtaHllb25pYy1teS1wbGktbWUtaHllb25pYy1teS1wbGktbWUtaHllb25pYy1teS1wbGktbWUtaHllb25pYy1teS1wbGk=
+  token-validity-in-seconds: 864000000
 
 # TODO oauth2 KAKAO
 #  security:
