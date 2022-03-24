@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**");
+        web.ignoring().antMatchers("/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**", "/test/**");
     }
 
     @Override
@@ -39,8 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests()
             .antMatchers(HttpMethod.OPTIONS).permitAll()
-            .antMatchers("/auth/**").permitAll()
-            .antMatchers("/test/**").permitAll()
+            .antMatchers("/auth/**", "/test/**").permitAll()
             .anyRequest().authenticated().and() // 해당 요청을 인증된 사용자만 사용 가능
             .headers()
             .frameOptions()
