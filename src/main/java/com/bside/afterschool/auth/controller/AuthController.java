@@ -25,7 +25,8 @@ public class AuthController {
 
     /**
      * KAKAO 소셜 로그인 기능
-     * @return ResponseEntity<AuthResponse>
+     * @param authRequest
+     * @return
      */
     @PostMapping(value = "/kakao")
     public ResponseEntity<AuthResponse> kakaoAuthRequest(@RequestBody AuthRequest authRequest) {
@@ -34,7 +35,8 @@ public class AuthController {
 
     /**
      * appToken 갱신
-     * @return ResponseEntity<AuthResponse>
+     * @param request
+     * @return
      */
     @GetMapping("/refreshToken")
     public ResponseEntity<AuthResponse> refreshToken (HttpServletRequest request) {

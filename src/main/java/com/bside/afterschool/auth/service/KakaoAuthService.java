@@ -26,12 +26,17 @@ public class KakaoAuthService {
 
     @Transactional
     public AuthResponse login(AuthRequest authRequest) {
+        // 카카오 회원정보 조회 & user모델 저장데이터 셋팅
         User kakaoMember = clientKakao.getUserData(authRequest.getAccessToken());
         String socialId = kakaoMember.getSocialId();
 
+        // 앱토근생성
         JwtToken appToken = jwtTokenProvider.createUserAppToken(socialId);
 
+        // 기존회원 유무 확인
         User user = userRepository.findBySocialId(socialId);
+
+        // TODO return 추가정보 유무 확인필요
         if (ObjectUtils.isEmpty(user)) {
             userRepository.save(kakaoMember);
             return AuthResponse.builder()

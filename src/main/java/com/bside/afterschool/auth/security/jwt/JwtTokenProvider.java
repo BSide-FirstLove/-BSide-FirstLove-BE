@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 public class JwtTokenProvider {
 
     @Value("${jwt.token-validity-in-seconds}")
-    private String expiry;
+    private String expiry;  // TODO expiry 시간 조정필요
 
     private final Key key;
     private static final String AUTHORITIES_KEY = "role";

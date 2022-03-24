@@ -19,6 +19,10 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Table(name = "user")
 public class User {
 
+    /**
+     * TODO 가입 시 받는정보 추가필요
+     */
+
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "user_id")

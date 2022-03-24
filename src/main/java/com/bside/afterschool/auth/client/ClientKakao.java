@@ -20,6 +20,12 @@ public class ClientKakao implements ClientProxy {
 
     private final WebClient webClient;
 
+    /**
+     * 카카오 회원정보 조회 및 user모델 저장데이터 셋팅
+     * TODO 회원가입 시 받는 정보 추가필요
+     * @param accessToken
+     * @return
+     */
     @Override
     public User getUserData(String accessToken) {
         KakaoUserResponse kakaoUserResponse = webClient.get()
