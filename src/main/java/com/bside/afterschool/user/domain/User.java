@@ -19,35 +19,50 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Table(name = "user")
 public class User {
 
-    /**
-     * TODO 가입 시 받는정보 추가필요
-     */
-
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "user_id")
-    private Long id;
+    private Long id;            // id
 
     @Column(nullable = false)
-    private String name;
+    private String name;        // 이름
 
     @Column
-    private String email;
+    private String email;       // 이메일
 
     @Column
-    private String gender;
+    private String gender;      // 성별
 
-    @Column(nullable = false)
-    private String socialId;
+    @Column(name = "social_id", nullable = false)
+    private String socialId;    // social Id
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "user_provider", nullable = false)
     private UserProvider userProvider;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "role_type", nullable = false)
     private RoleType roleType;
 
-    @Column
-    private String profileImagePath;
+    @Column(name = "school_name")
+    private String schoolName;  // TODO 학교명 -> 유저,학교 매핑테이블 생성 시 수정필요
+
+    @Column(name = "enter_year")
+    private String enterYear;   // 입학연도
+
+    @Column(name = "end_year")
+    private String endYear;     // 졸업연도
+
+    @Column(name = "instagram_url")
+    private String instagramUrl;
+
+    @Column(name = "job")
+    private String job;         // 직업
+
+    @Lob
+    private String description; // 하고싶은 말
+
+    @Transient
+    @Column(name = "profile_image_path")
+    private String profileImagePath;    // TODO profileImagePath 컬럼 사용유무 확인필요
 }
