@@ -1,13 +1,14 @@
 package com.bside.afterschool.auth.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Lob;
 
-@Getter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class AuthRequest {
@@ -21,4 +22,7 @@ public class AuthRequest {
     private String instagramUrl;
     private String job;         // 직업
     private String description; // 하고싶은 말
+
+
+    private Boolean isRegist;
 }

@@ -33,7 +33,8 @@ public class KakaoAuthService {
     @Transactional
     public AuthResponse login(AuthRequest authRequest) {
         // 카카오 회원정보 조회 & user모델 저장데이터 셋팅
-        User kakaoMember = clientKakao.getUserData(authRequest.getAccessToken());
+        authRequest.setIsRegist(Boolean.FALSE);
+        User kakaoMember = clientKakao.getUserData(authRequest);
         String socialId = kakaoMember.getSocialId();
 
         // 기존회원 유무 확인
@@ -66,17 +67,8 @@ public class KakaoAuthService {
     @Transactional
     public AuthResponse regist(AuthRequest authRequest) {
         // 카카오 회원정보 조회 & user모델 저장데이터 셋팅
-        User kakaoMember = clientKakao.getUserData(authRequest.getAccessToken());
-
-        // TODO 추가정보 셋팅 임시생성( clientKakao와 병합 필요 )
-        User.builder()
-                .enterYear(StringUtils.isNotEmpty(authRequest.getEnterYear()) ? authRequest.getEnterYear() : "")
-                .endYear(StringUtils.isNotEmpty(authRequest.getEndYear()) ? authRequest.getEndYear() : "")
-                .schoolName(StringUtils.isNotEmpty(authRequest.getSchoolName()) ? authRequest.getSchoolName() : "")
-                .description(StringUtils.isNotEmpty(authRequest.getDescription()) ? authRequest.getDescription() : "")
-                .job(StringUtils.isNotEmpty(authRequest.getJob()) ? authRequest.getJob() : "")
-                .instagramUrl(StringUtils.isNotEmpty(authRequest.getInstagramUrl()) ? authRequest.getInstagramUrl() : "")
-                .build();
+        authRequest.setIsRegist(Boolean.TRUE);
+        User kakaoMember = clientKakao.getUserData(authRequest);
 
         String socialId = kakaoMember.getSocialId();
 
@@ -84,8 +76,8 @@ public class KakaoAuthService {
         JwtToken appToken = jwtTokenProvider.createUserAppToken(socialId);
 
         // 유저정보 저장
-        // TODO return데이터 확인 및 수정필요
         userRepository.save(kakaoMember);
+        // TODO return데이터 확인 및 수정필요
         return AuthResponse.builder()
                 .appToken(appToken.getToken())
                 .resultCode(HttpStatus.OK.toString())

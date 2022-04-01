@@ -1,11 +1,13 @@
 package com.bside.afterschool.auth.client;
 
+import com.bside.afterschool.auth.dto.AuthRequest;
 import com.bside.afterschool.auth.dto.KakaoUserResponse;
 import com.bside.afterschool.auth.enumerate.RoleType;
 import com.bside.afterschool.auth.exception.TokenValidFailedException;
 import com.bside.afterschool.user.domain.User;
 import com.bside.afterschool.user.enumerate.UserProvider;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -23,28 +25,43 @@ public class ClientKakao implements ClientProxy {
     /**
      * 카카오 회원정보 조회 및 user모델 저장데이터 셋팅
      * TODO 회원가입 시 받는 정보 추가필요
-     * @param accessToken
+     * @param authRequest
      * @return
      */
     @Override
-    public User getUserData(String accessToken) {
+    public User getUserData(AuthRequest authRequest) {
         KakaoUserResponse kakaoUserResponse = webClient.get()
                 .uri("https://kapi.kakao.com/v2/user/me")
-                .headers(h -> h.setBearerAuth(accessToken))
+                .headers(h -> h.setBearerAuth(authRequest.getAccessToken()))
                 .retrieve()
                 .onStatus(HttpStatus::is4xxClientError, response -> Mono.error(new TokenValidFailedException("Social Access Token is unauthorized")))
                 .onStatus(HttpStatus::is5xxServerError, response -> Mono.error(new TokenValidFailedException("Internal Server Error")))
                 .bodyToMono(KakaoUserResponse.class)
                 .block();
 
-        return User.builder()
-                .socialId(String.valueOf(kakaoUserResponse.getId()))
-                .name(kakaoUserResponse.getProperties().getNickname())
-                .email(kakaoUserResponse.getKakaoAccount().getEmail())
-                .gender(kakaoUserResponse.getKakaoAccount().getGender())
-                .userProvider(UserProvider.KAKAO)
-                .roleType(RoleType.USER)
-                .profileImagePath(kakaoUserResponse.getProperties().getProfileImage() != null ? kakaoUserResponse.getProperties().getProfileImage() : "")
-                .build();
+        if(Boolean.TRUE.equals(authRequest.getIsRegist())){
+            // 가입, 회원정보저장
+            return User.builder()
+                    .socialId(String.valueOf(kakaoUserResponse.getId()))
+                    .name(kakaoUserResponse.getProperties().getNickname())
+                    .email(kakaoUserResponse.getKakaoAccount().getEmail())
+                    .gender(kakaoUserResponse.getKakaoAccount().getGender())
+                    .userProvider(UserProvider.KAKAO)
+                    .roleType(RoleType.USER)
+                    .profileImagePath(kakaoUserResponse.getProperties().getProfileImage() != null ? kakaoUserResponse.getProperties().getProfileImage() : "")
+                    .enterYear(StringUtils.isNotEmpty(authRequest.getEnterYear()) ? authRequest.getEnterYear() : "")
+                    .endYear(StringUtils.isNotEmpty(authRequest.getEndYear()) ? authRequest.getEndYear() : "")
+                    .schoolName(StringUtils.isNotEmpty(authRequest.getSchoolName()) ? authRequest.getSchoolName() : "")
+                    .description(StringUtils.isNotEmpty(authRequest.getDescription()) ? authRequest.getDescription() : "")
+                    .job(StringUtils.isNotEmpty(authRequest.getJob()) ? authRequest.getJob() : "")
+                    .instagramUrl(StringUtils.isNotEmpty(authRequest.getInstagramUrl()) ? authRequest.getInstagramUrl() : "")
+                    .build();
+        } else {
+            // 로그인 or 최초접속
+            return User.builder()
+                    .name(kakaoUserResponse.getProperties().getNickname())
+                    .build();
+
+        }
     }
 }
