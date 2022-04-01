@@ -6,6 +6,7 @@ import com.bside.afterschool.auth.service.KakaoAuthService;
 import com.bside.afterschool.common.util.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.style.ToStringStyler;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,6 +45,16 @@ public class ApiTestController {
     // http://localhost:8000/test/auth/kakao
     @PostMapping("/test/auth/kakao")
     public ResponseEntity<AuthResponse> kakaoAuthRequestTest(@RequestBody AuthRequest authRequest) {
+        System.out.println("###########################################");
+        System.out.println("authRequest >>>>>>>>>>>>>>> " + authRequest);
+        System.out.println("###########################################");
+        return ApiResponse.success(kakaoAuthService.login(authRequest));
+    }
+
+    // http://localhost:8000/test/auth/regist
+    // 회원가입 테스트
+    @PostMapping("/test/auth/regist")
+    public ResponseEntity<AuthResponse> kakaoAuthRegistTest(@RequestBody AuthRequest authRequest) {
         System.out.println("###########################################");
         System.out.println("authRequest >>>>>>>>>>>>>>> " + authRequest);
         System.out.println("###########################################");

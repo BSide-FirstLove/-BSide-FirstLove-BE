@@ -34,6 +34,19 @@ public class AuthController {
     }
 
     /**
+     * TODO 회원가입 테스트필요
+     * @param authRequest
+     * @return
+     */
+    @PostMapping("/regist")
+    public ResponseEntity<AuthResponse> authRegist(@RequestBody AuthRequest authRequest) {
+        System.out.println("###########################################");
+        System.out.println("authRequest >>>>>>>>>>>>>>> " + authRequest);
+        System.out.println("###########################################");
+        return ApiResponse.success(kakaoAuthService.signIn(authRequest));
+    }
+
+    /**
      * appToken 갱신
      * @param request
      * @return
@@ -52,4 +65,5 @@ public class AuthController {
         }
         return ApiResponse.success(authResponse);
     }
+
 }
