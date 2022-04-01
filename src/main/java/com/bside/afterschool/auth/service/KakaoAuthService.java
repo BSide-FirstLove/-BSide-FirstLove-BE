@@ -64,7 +64,7 @@ public class KakaoAuthService {
      * @return
      */
     @Transactional
-    public AuthResponse signIn(AuthRequest authRequest) {
+    public AuthResponse regist(AuthRequest authRequest) {
         // 카카오 회원정보 조회 & user모델 저장데이터 셋팅
         User kakaoMember = clientKakao.getUserData(authRequest.getAccessToken());
 

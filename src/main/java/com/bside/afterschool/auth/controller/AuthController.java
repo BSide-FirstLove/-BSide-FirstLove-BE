@@ -43,7 +43,7 @@ public class AuthController {
         System.out.println("###########################################");
         System.out.println("authRequest >>>>>>>>>>>>>>> " + authRequest);
         System.out.println("###########################################");
-        return ApiResponse.success(kakaoAuthService.signIn(authRequest));
+        return ApiResponse.success(kakaoAuthService.regist(authRequest));
     }
 
     /**

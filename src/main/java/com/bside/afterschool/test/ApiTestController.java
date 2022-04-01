@@ -58,7 +58,7 @@ public class ApiTestController {
         System.out.println("###########################################");
         System.out.println("authRequest >>>>>>>>>>>>>>> " + authRequest);
         System.out.println("###########################################");
-        return ApiResponse.success(kakaoAuthService.login(authRequest));
+        return ApiResponse.success(kakaoAuthService.regist(authRequest));
     }
 
 }
