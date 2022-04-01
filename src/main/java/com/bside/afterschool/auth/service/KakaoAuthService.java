@@ -75,6 +75,7 @@ public class KakaoAuthService {
                 .schoolName(StringUtils.isNotEmpty(authRequest.getSchoolName()) ? authRequest.getSchoolName() : "")
                 .description(StringUtils.isNotEmpty(authRequest.getDescription()) ? authRequest.getDescription() : "")
                 .job(StringUtils.isNotEmpty(authRequest.getJob()) ? authRequest.getJob() : "")
+                .instagramUrl(StringUtils.isNotEmpty(authRequest.getInstagramUrl()) ? authRequest.getInstagramUrl() : "")
                 .build();
 
         String socialId = kakaoMember.getSocialId();
@@ -87,7 +88,6 @@ public class KakaoAuthService {
         userRepository.save(kakaoMember);
         return AuthResponse.builder()
                 .appToken(appToken.getToken())
-                .isNewMember(Boolean.TRUE)
                 .resultCode(HttpStatus.OK.toString())
                 .resultMsg("signIn success")
                 .build();
