@@ -36,6 +36,7 @@ public class ApiTestController {
         map.put("삼겹살", "쌈장");
         map.put("호로로", "달콤");
         map.put("우거지", "감자탕");
+        map.put("배포테스트", "배포테스트");
         list.add(map);
         return list;
     }
