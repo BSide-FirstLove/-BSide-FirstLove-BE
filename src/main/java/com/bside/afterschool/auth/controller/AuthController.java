@@ -54,7 +54,7 @@ public class AuthController {
      * @return
      */
     @GetMapping("/refreshToken")
-    public ResponseEntity<AuthResponse> refreshToken (HttpServletRequest request) {
+    public ResponseEntity<?> refreshToken (HttpServletRequest request) {
         String appToken = JwtHeaderUtil.getAccessToken(request);
         JwtToken authToken = jwtTokenProvider.convertAuthToken(appToken);
         if (!authToken.validate()) { // 형식에 맞지 않는 token
@@ -63,9 +63,9 @@ public class AuthController {
 
         AuthResponse authResponse = authService.updateToken(authToken);
         if (authResponse == null) { // token 만료
-            return ApiResponse.forbidden(null);
+            return new ResponseEntity<>(new CommonRespDto<>(9999, "HttpStatus.FORBIDDEN 403", null), HttpStatus.FORBIDDEN);
         }
-        return ApiResponse.success(authResponse);
+        return new ResponseEntity<>(new CommonRespDto<>(1, "HttpStatus.OK 200", authResponse), HttpStatus.OK);
     }
 
 }

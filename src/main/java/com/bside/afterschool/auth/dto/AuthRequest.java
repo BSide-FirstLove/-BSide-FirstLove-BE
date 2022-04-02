@@ -12,6 +12,7 @@ public class AuthRequest {
     private String accessToken;
 
     // TODO 회원가입 추가입력항목
+    private String nickname;        // 회원명
     private String schoolName;  // 학교명
     private String enterYear;   // 입학연도
     private String endYear;     // 졸업연도

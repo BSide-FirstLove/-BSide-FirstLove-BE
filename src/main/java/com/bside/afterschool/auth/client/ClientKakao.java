@@ -43,12 +43,12 @@ public class ClientKakao implements ClientProxy {
             // 가입, 회원정보저장
             return User.builder()
                     .socialId(String.valueOf(kakaoUserResponse.getId()))
-                    .name(kakaoUserResponse.getProperties().getNickname())
                     .email(kakaoUserResponse.getKakaoAccount().getEmail())
                     .gender(kakaoUserResponse.getKakaoAccount().getGender())
                     .userProvider(UserProvider.KAKAO)
                     .roleType(RoleType.USER)
                     .profileImagePath(kakaoUserResponse.getProperties().getProfileImage() != null ? kakaoUserResponse.getProperties().getProfileImage() : "")
+                    .name(authRequest.getNickname())
                     .enterYear(StringUtils.isNotEmpty(authRequest.getEnterYear()) ? authRequest.getEnterYear() : "")
                     .endYear(StringUtils.isNotEmpty(authRequest.getEndYear()) ? authRequest.getEndYear() : "")
                     .schoolName(StringUtils.isNotEmpty(authRequest.getSchoolName()) ? authRequest.getSchoolName() : "")
