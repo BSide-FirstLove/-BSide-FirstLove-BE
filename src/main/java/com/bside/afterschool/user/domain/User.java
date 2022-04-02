@@ -1,7 +1,8 @@
 package com.bside.afterschool.user.domain;
 
 import com.bside.afterschool.auth.enumerate.RoleType;
-import com.bside.afterschool.place.domain.Post;
+import com.bside.afterschool.place.domain.Place;
+import com.bside.afterschool.post.domain.Post;
 import com.bside.afterschool.user.enumerate.UserProvider;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -27,6 +29,12 @@ public class User {
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "user_id")
     private Long id;            // id
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Place> placeList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Post> postList = new ArrayList<>();
 
     @Column(nullable = false)
     private String name;        // 이름
@@ -70,7 +78,4 @@ public class User {
     @Column(name = "profile_image_path")
     private String profileImagePath;    // TODO profileImagePath 컬럼 사용유무 확인필요
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    @JsonIgnoreProperties({"user"}) // Post안에있는 user를 ignore
-    private List<Post> posts;
 }

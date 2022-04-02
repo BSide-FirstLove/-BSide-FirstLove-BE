@@ -21,6 +21,9 @@ public class UserController {
      */
     @GetMapping
     public ResponseEntity<AuthResponse> getUserMain(@RequestBody AuthRequest authRequest) {
-        return ApiResponse.success(null);
+        return ApiResponse.success(AuthResponse.builder()
+                .resultCode("0000")
+                .resultMsg("/user 접근 성공")
+                .build());
     }
 }

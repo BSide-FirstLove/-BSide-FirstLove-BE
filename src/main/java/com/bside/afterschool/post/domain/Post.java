@@ -1,5 +1,8 @@
-package com.bside.afterschool.place.domain;
+package com.bside.afterschool.post.domain;
 
+import com.bside.afterschool.place.domain.Comment;
+import com.bside.afterschool.place.domain.Likes;
+import com.bside.afterschool.place.domain.Place;
 import com.bside.afterschool.user.domain.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
@@ -9,6 +12,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Builder
@@ -24,15 +28,21 @@ public class Post {
     @Column(name = "post_id")
     private int id;
 
-    private String caption;
-
-    @Column(name = "post_image_url")
-    private String postImageUrl;
-
     @JsonIgnoreProperties({"posts"})
     @JoinColumn(name = "user_id")
     @ManyToOne
     private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "place_id")
+    private Place place;
+
+    // TODO length 기획정의 필요
+    @Column(nullable = false, length = 200)
+    private String caption;
+
+    @Column(name = "post_image_url")
+    private String postImageUrl;
 
     // 좋아요
     @JsonIgnoreProperties({"post"})
@@ -43,13 +53,7 @@ public class Post {
     @OrderBy("id DESC")
     @JsonIgnoreProperties({"post"})
     @OneToMany(mappedBy = "post")
-    private List<Comment> comments;
-
-    @Transient  // DB에 컬럼이 만들어지지 않는다.
-    private boolean likeState;
-
-    @Transient  // DB에 컬럼이 만들어지지 않는다.
-    private Integer likeCount;
+    private List<Comment> comments = new ArrayList<>();
 
     @Column(name = "create_date")
     private LocalDateTime createDate;

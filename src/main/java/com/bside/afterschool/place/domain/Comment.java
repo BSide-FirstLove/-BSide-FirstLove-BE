@@ -1,5 +1,6 @@
 package com.bside.afterschool.place.domain;
 
+import com.bside.afterschool.post.domain.Post;
 import com.bside.afterschool.user.domain.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
