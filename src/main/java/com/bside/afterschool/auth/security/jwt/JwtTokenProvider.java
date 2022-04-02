@@ -3,6 +3,8 @@ package com.bside.afterschool.auth.security.jwt;
 import com.bside.afterschool.auth.enumerate.RoleType;
 import com.bside.afterschool.auth.exception.TokenValidFailedException;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -65,6 +67,15 @@ public class JwtTokenProvider {
             return new UsernamePasswordAuthenticationToken(principal, authToken, authorities);
         } else {
             throw new TokenValidFailedException();
+        }
+    }
+
+    // jwt 복호화 사실 이 메서드는 getAuthentication 쪽에 들어가야된다.
+    public Claims parseClaims(String accessToken) {
+        try {
+            return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(accessToken).getBody();
+        } catch (ExpiredJwtException e) {
+            return e.getClaims();
         }
     }
 
