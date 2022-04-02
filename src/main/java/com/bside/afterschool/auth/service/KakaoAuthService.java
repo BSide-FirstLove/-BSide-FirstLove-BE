@@ -43,10 +43,11 @@ public class KakaoAuthService {
         if (ObjectUtils.isEmpty(user)) {
             // 기존유저 아닌경우
             // return 카카오닉네임, 새유저 여부 true
-            userRepository.save(kakaoMember);
             return AuthResponse.builder()
                     .isNewMember(Boolean.TRUE)
                     .nickname(kakaoMember.getName())
+                    .resultCode("0000")
+                    .resultMsg("success")
                     .build();
         } else {
             // else 로그인처리
@@ -55,6 +56,8 @@ public class KakaoAuthService {
             return AuthResponse.builder()
                     .appToken(appToken.getToken())
                     .isNewMember(Boolean.FALSE)
+                    .resultCode("0000")
+                    .resultMsg("success")
                     .build();
         }
     }
