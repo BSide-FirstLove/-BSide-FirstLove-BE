@@ -83,7 +83,7 @@ public class KakaoAuthService {
         // TODO return데이터 확인 및 수정필요
         return AuthResponse.builder()
                 .appToken(appToken.getToken())
-                .resultCode(HttpStatus.OK.toString())
+                .resultCode("0000")
                 .resultMsg("signIn success")
                 .build();
 
