@@ -2,11 +2,7 @@ package com.bside.afterschool.auth.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.Column;
-import javax.persistence.Lob;
 
 @Data
 @AllArgsConstructor

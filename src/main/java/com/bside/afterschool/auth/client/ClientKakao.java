@@ -59,6 +59,7 @@ public class ClientKakao implements ClientProxy {
         } else {
             // 로그인 or 최초접속
             return User.builder()
+                    .socialId(String.valueOf(kakaoUserResponse.getId()))
                     .name(kakaoUserResponse.getProperties().getNickname())
                     .build();
 

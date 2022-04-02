@@ -46,8 +46,6 @@ public class KakaoAuthService {
             return AuthResponse.builder()
                     .isNewMember(Boolean.TRUE)
                     .nickname(kakaoMember.getName())
-                    .resultCode("0000")
-                    .resultMsg("success")
                     .build();
         } else {
             // else 로그인처리
@@ -56,8 +54,6 @@ public class KakaoAuthService {
             return AuthResponse.builder()
                     .appToken(appToken.getToken())
                     .isNewMember(Boolean.FALSE)
-                    .resultCode("0000")
-                    .resultMsg("success")
                     .build();
         }
     }
@@ -83,8 +79,6 @@ public class KakaoAuthService {
         // TODO return데이터 확인 및 수정필요
         return AuthResponse.builder()
                 .appToken(appToken.getToken())
-                .resultCode("0000")
-                .resultMsg("signIn success")
                 .build();
 
     }

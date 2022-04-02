@@ -8,7 +8,9 @@ import com.bside.afterschool.common.util.ApiResponse;
 import com.bside.afterschool.auth.dto.AuthRequest;
 import com.bside.afterschool.auth.dto.AuthResponse;
 import com.bside.afterschool.auth.service.KakaoAuthService;
+import com.bside.afterschool.common.util.CommonRespDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,8 +31,8 @@ public class AuthController {
      * @return
      */
     @PostMapping(value = "/kakao")
-    public ResponseEntity<AuthResponse> kakaoAuthRequest(@RequestBody AuthRequest authRequest) {
-        return ApiResponse.success(kakaoAuthService.login(authRequest));
+    public ResponseEntity<?> kakaoAuthRequest(@RequestBody AuthRequest authRequest) {
+        return new ResponseEntity<>(new CommonRespDto<>(1, "성공 /auth/kakao success", kakaoAuthService.login(authRequest)), HttpStatus.OK);
     }
 
     /**
@@ -39,11 +41,11 @@ public class AuthController {
      * @return
      */
     @PostMapping("/regist")
-    public ResponseEntity<AuthResponse> authRegist(@RequestBody AuthRequest authRequest) {
+    public ResponseEntity<?> authRegist(@RequestBody AuthRequest authRequest) {
         System.out.println("###########################################");
         System.out.println("authRequest >>>>>>>>>>>>>>> " + authRequest);
         System.out.println("###########################################");
-        return ApiResponse.success(kakaoAuthService.regist(authRequest));
+        return new ResponseEntity<>(new CommonRespDto<>(1, "성공 /auth/regist success", kakaoAuthService.regist(authRequest)), HttpStatus.OK);
     }
 
     /**
