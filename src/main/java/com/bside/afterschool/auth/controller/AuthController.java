@@ -36,15 +36,12 @@ public class AuthController {
     }
 
     /**
-     * TODO 회원가입 테스트필요
+     * 회원가입
      * @param authRequest
      * @return
      */
     @PostMapping("/regist")
     public ResponseEntity<?> authRegist(@RequestBody AuthRequest authRequest) {
-        System.out.println("###########################################");
-        System.out.println("authRequest >>>>>>>>>>>>>>> " + authRequest);
-        System.out.println("###########################################");
         return new ResponseEntity<>(new CommonRespDto<>(1, "성공 /auth/regist success", kakaoAuthService.regist(authRequest)), HttpStatus.OK);
     }
 

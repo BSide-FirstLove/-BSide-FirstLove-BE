@@ -28,7 +28,7 @@ spring:
 jwt:
   header: Authorization
   secret: bWUtaHllb25pYy1teS1wbGktbWUtaHllb25pYy1teS1wbGktbWUtaHllb25pYy1teS1wbGktbWUtaHllb25pYy1teS1wbGk=
-  token-validity-in-seconds: 864000000
+  token-validity-in-seconds: 86400
 
 # TODO oauth2 KAKAO
 #  security:
