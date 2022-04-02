@@ -11,9 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class AuthResponse {
 
-    private String resultCode;
-    private String resultMsg;
-
     private String appToken;
     private Boolean isNewMember;
     private String nickname;
