@@ -2,11 +2,10 @@ package com.bside.afterschool.test;
 
 import com.bside.afterschool.auth.dto.AuthRequest;
 import com.bside.afterschool.auth.dto.AuthResponse;
-import com.bside.afterschool.auth.service.KakaoAuthService;
+import com.bside.afterschool.auth.security.service.KakaoAuthService;
 import com.bside.afterschool.common.util.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.style.ToStringStyler;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

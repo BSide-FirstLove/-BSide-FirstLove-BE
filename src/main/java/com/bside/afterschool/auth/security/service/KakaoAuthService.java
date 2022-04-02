@@ -1,4 +1,4 @@
-package com.bside.afterschool.auth.service;
+package com.bside.afterschool.auth.security.service;
 
 import com.bside.afterschool.auth.client.ClientKakao;
 import com.bside.afterschool.auth.dto.AuthRequest;
