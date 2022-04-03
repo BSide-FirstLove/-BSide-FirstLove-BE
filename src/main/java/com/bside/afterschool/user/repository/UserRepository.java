@@ -8,6 +8,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findMemberById(Long memberId);
 
+    User findMemberBySocialId(Long socialId);
+
     /**
      * 회원조회 by socialID
      * TODO querydsl 적용필요
