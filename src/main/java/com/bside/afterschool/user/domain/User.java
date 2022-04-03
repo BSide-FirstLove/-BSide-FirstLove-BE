@@ -5,10 +5,7 @@ import com.bside.afterschool.place.domain.Place;
 import com.bside.afterschool.post.domain.Post;
 import com.bside.afterschool.user.enumerate.UserProvider;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -17,11 +14,11 @@ import java.util.List;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-@Getter
-@Entity
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Entity
 @Table(name = "user")
 public class User {
 
@@ -77,5 +74,4 @@ public class User {
     @Transient
     @Column(name = "profile_image_path")
     private String profileImagePath;    // TODO profileImagePath 컬럼 사용유무 확인필요
-
 }
