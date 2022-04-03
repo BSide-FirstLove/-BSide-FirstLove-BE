@@ -49,12 +49,12 @@ public class ClientKakao implements ClientProxy {
                     .roleType(RoleType.USER)
                     .profileImagePath(kakaoUserResponse.getProperties().getProfileImage() != null ? kakaoUserResponse.getProperties().getProfileImage() : "")
                     .name(authRequest.getNickname())
-                    .enterYear(StringUtils.isNotEmpty(authRequest.getEnterYear()) ? authRequest.getEnterYear() : "")
-                    .endYear(StringUtils.isNotEmpty(authRequest.getEndYear()) ? authRequest.getEndYear() : "")
-                    .schoolName(StringUtils.isNotEmpty(authRequest.getSchoolName()) ? authRequest.getSchoolName() : "")
-                    .description(StringUtils.isNotEmpty(authRequest.getDescription()) ? authRequest.getDescription() : "")
-                    .job(StringUtils.isNotEmpty(authRequest.getJob()) ? authRequest.getJob() : "")
-                    .instagramUrl(StringUtils.isNotEmpty(authRequest.getInstagramUrl()) ? authRequest.getInstagramUrl() : "")
+                    .enterYear(authRequest.getEnterYear())
+                    .endYear(authRequest.getEndYear())
+                    .schoolName(authRequest.getSchoolName())
+                    .description(authRequest.getDescription())
+                    .job(authRequest.getJob())
+                    .instagramUrl(authRequest.getInstagramUrl())
                     .build();
         } else {
             // 로그인 or 최초접속
