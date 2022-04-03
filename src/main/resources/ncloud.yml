@@ -1,0 +1,10 @@
+cloud:
+  ncloud:
+    credentials:
+      endPoint: https://kr.object.ncloudstorage.com
+      accessKey: iZ1tPGDmL05pQnfnQ40N
+      secretKey: 8UOUlXXcWyg9VFBctzolvyBKLeQXAGHBvHz5iBWE
+    objStorage:
+      bucket: after-school
+    region:
+      static: kr-standard
