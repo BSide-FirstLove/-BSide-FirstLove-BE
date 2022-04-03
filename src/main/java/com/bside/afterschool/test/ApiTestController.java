@@ -1,9 +1,9 @@
 package com.bside.afterschool.test;
 
 import com.bside.afterschool.auth.security.jwt.JwtHeaderUtil;
-import com.bside.afterschool.auth.security.service.AuthService;
 import com.bside.afterschool.auth.security.service.KakaoAuthService;
 import com.bside.afterschool.common.exception.global.response.ApiResDto;
+import com.bside.afterschool.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,7 +27,7 @@ public class ApiTestController {
     @Autowired
     private KakaoAuthService kakaoAuthService;
     @Autowired
-    private AuthService authService;
+    private UserService userService;
 
     // http://localhost:8000/test/hello
     @GetMapping("/test/hello")
@@ -52,7 +52,7 @@ public class ApiTestController {
 
         String token = JwtHeaderUtil.getAccessToken(request);   // Bearer를 뺀 token값 얻기
 
-        Long memberId = authService.getUserId(token); // token 검증 및 회원id조회
+        Long memberId = userService.getUserId(token); // token 검증 및 회원id조회
 
         Map<String, Object> rtnMap = new HashMap<>();
         rtnMap.put("memberId", memberId == null ? "" : memberId);

@@ -18,7 +18,6 @@ import org.springframework.web.server.ResponseStatusException;
 public class AuthService {
 
     private final JwtTokenProvider jwtTokenProvider;
-    private final UserRepository userRepository;
 
     public AuthResponse updateToken(JwtToken jwtToken) {
         Claims claims = jwtToken.getTokenClaims();
@@ -33,27 +32,5 @@ public class AuthService {
         return AuthResponse.builder()
                 .appToken(newAppToken.getToken())
                 .build();
-    }
-
-    /**
-     * 회원 ID 조회
-     * @param token
-     * @return
-     */
-    public Long getUserId(String token) {
-        JwtToken authToken = jwtTokenProvider.convertAuthToken(token);
-
-        Claims claims = authToken.getTokenClaims(); // Token 검증
-        if (claims == null) {
-            return null;
-        }
-
-        try {
-            User user =  userRepository.findBySocialId(claims.getSubject());
-            return user.getId();
-
-        } catch (NullPointerException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "사용자가 존재하지 않습니다.");
-        }
     }
 }

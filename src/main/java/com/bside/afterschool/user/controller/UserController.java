@@ -1,10 +1,10 @@
 package com.bside.afterschool.user.controller;
 
 import com.bside.afterschool.auth.security.jwt.JwtHeaderUtil;
-import com.bside.afterschool.auth.security.service.AuthService;
 import com.bside.afterschool.common.annotation.JwtUser;
 import com.bside.afterschool.common.annotation.dto.UserResolverDto;
 import com.bside.afterschool.common.exception.global.response.ApiResDto;
+import com.bside.afterschool.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final AuthService authService;
+    private final UserService userService;
 
     /**
      * 메인화면 정보 조회
@@ -31,7 +31,7 @@ public class UserController {
         // token검증 임시로 넣어뒀습니다.
         String token = JwtHeaderUtil.getAccessToken(request);
 
-        Long memberId = authService.getUserId(token);
+        Long memberId = userService.getUserId(token);
 
         return new ResponseEntity<>(new ApiResDto<>(1, "메인화면 정보 조회 성공", memberId), HttpStatus.OK);
     }
