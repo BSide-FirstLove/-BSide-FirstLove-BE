@@ -1,5 +1,6 @@
 package com.bside.afterschool.place.domain;
 
+import com.bside.afterschool.common.domain.BaseEntity;
 import com.bside.afterschool.place.enumerate.PlaceType;
 import com.bside.afterschool.post.domain.Post;
 import com.bside.afterschool.user.domain.User;
@@ -19,7 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "place")
-public class Place {
+public class Place extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "place_id")

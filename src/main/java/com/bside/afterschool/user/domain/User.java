@@ -1,14 +1,16 @@
 package com.bside.afterschool.user.domain;
 
 import com.bside.afterschool.auth.enumerate.RoleType;
+import com.bside.afterschool.common.domain.BaseEntity;
 import com.bside.afterschool.place.domain.Place;
 import com.bside.afterschool.post.domain.Post;
 import com.bside.afterschool.user.enumerate.UserProvider;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +22,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Data
 @Entity
 @Table(name = "user")
-public class User {
+public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)

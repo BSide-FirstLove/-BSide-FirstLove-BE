@@ -1,8 +1,8 @@
 package com.bside.afterschool.post.domain;
 
-import com.bside.afterschool.place.domain.Comment;
-import com.bside.afterschool.place.domain.Likes;
+import com.bside.afterschool.common.domain.BaseEntity;
 import com.bside.afterschool.place.domain.Place;
+import com.bside.afterschool.place.enumerate.PlaceType;
 import com.bside.afterschool.user.domain.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
@@ -11,9 +11,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Builder
 @AllArgsConstructor
@@ -21,7 +18,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "post")
-public class Post {
+public class Post extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,30 +34,31 @@ public class Post {
     @JoinColumn(name = "place_id")
     private Place place;
 
+    @Enumerated(value = EnumType.STRING)
+    @Column(nullable = false)
+    private PlaceType placeType;
+
     // TODO length 기획정의 필요
     @Column(nullable = false, length = 200)
-    private String caption;
+    private String contents;
 
-    @Column(name = "post_image_url")
-    private String postImageUrl;
+    @Column(name = "year")
+    private String year;
 
-    // 좋아요
-    @JsonIgnoreProperties({"post"})
-    @OneToMany(mappedBy = "post")
-    private List<Likes> likes;
+    // TODO 이미지, 해시태그
+    //    @OneToMany(mappedBy = "post")
+    //    private List<String> imgPathList = new ArrayList<>();   // 이미지 최대 3개
+    //    private List<String> hashtagList = new ArrayList<>();   // 해시태그 최대 3개
 
-    // 댓글
-    @OrderBy("id DESC")
-    @JsonIgnoreProperties({"post"})
-    @OneToMany(mappedBy = "post")
-    private List<Comment> comments = new ArrayList<>();
+    // TODO 좋아요, 댓글
 
-    @Column(name = "create_date")
-    private LocalDateTime createDate;
-
-    @PrePersist
-    public void createDate(){
-        this.createDate = LocalDateTime.now();
+    @Builder
+    public Post(User user, Place place, PlaceType placeType) {
+        this.user = user;
+        this.place = place;
+        this.placeType = placeType;
+        user.getPostList().add(this);
+        place.getPostList().add(this);
     }
 
 }
