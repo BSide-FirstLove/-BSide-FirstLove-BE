@@ -9,10 +9,8 @@ import com.bside.afterschool.user.repository.UserRepository;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
 
 @Slf4j
 @Service
@@ -40,7 +38,7 @@ public class UserService {
             return user.getId();
 
         } catch (NullPointerException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "사용자가 존재하지 않습니다.");
+            throw new BusinessException("사용자가 존재하지 않습니다.", ErrorCode.ENTITY_NOT_FOUND);
         }
     }
 

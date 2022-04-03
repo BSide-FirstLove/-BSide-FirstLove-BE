@@ -40,7 +40,7 @@ public class UserController {
      * @param request
      * @return
      */
-    @PostMapping("/update")
+    @PutMapping("/update")
     public ResponseEntity<?> updateAddInfo(HttpServletRequest request, @RequestBody UserInfoRequest userInfoRequest) {
         String token = JwtHeaderUtil.getAccessToken(request);
         return new ResponseEntity<>(new ApiResDto<>(1, "성공 /user/update success", userService.updateAddInfo(token, userInfoRequest.toEntity())), HttpStatus.OK);
