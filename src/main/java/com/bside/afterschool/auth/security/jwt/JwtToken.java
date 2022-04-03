@@ -44,7 +44,7 @@ public class JwtToken {
     }
 
     // Token 검증
-    // TODO Token값이 다른 경우 생성되는 SignatureException catch처리할지 확인필요
+    // TODO Token값이 다른 경우 생성되는 500에러 (SignatureException) catch처리할지 확인필요
     public Claims getTokenClaims() {
         try {
             return Jwts.parserBuilder()

@@ -1,8 +1,8 @@
 package com.bside.afterschool.test;
 
 import com.bside.afterschool.auth.security.jwt.JwtHeaderUtil;
-import com.bside.afterschool.auth.service.AuthService;
-import com.bside.afterschool.auth.service.KakaoAuthService;
+import com.bside.afterschool.auth.security.service.AuthService;
+import com.bside.afterschool.auth.security.service.KakaoAuthService;
 import com.bside.afterschool.common.exception.global.response.ApiResDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package com.bside.afterschool.user.controller;
 
 import com.bside.afterschool.auth.security.jwt.JwtHeaderUtil;
-import com.bside.afterschool.auth.service.AuthService;
+import com.bside.afterschool.auth.security.service.AuthService;
 import com.bside.afterschool.common.annotation.JwtUser;
 import com.bside.afterschool.common.annotation.dto.UserResolverDto;
 import com.bside.afterschool.common.exception.global.response.ApiResDto;
