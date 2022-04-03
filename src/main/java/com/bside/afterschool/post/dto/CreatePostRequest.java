@@ -1,6 +1,5 @@
 package com.bside.afterschool.post.dto;
 
-import com.bside.afterschool.place.enumerate.PlaceType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,8 +11,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreatePostRequest {
-
-    private PlaceType placeType;    // 장소타입 ( 학교, 학원, 추억의장소 )
 
     private String contents; // 추억내용
     private String year;        // 추억시기

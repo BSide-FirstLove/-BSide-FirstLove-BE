@@ -34,15 +34,17 @@ public class PostService {
      */
     @Transactional
     public void registerPost(String token, Long placeId, CreatePostRequest createPostRequest) {
-        if(ObjectUtils.isEmpty(createPostRequest.getPlaceType())) {
-            throw new BusinessException("존재하지 않는 PlaceType입니다.", ErrorCode.INVALID_INPUT_VALUE);
+        if(ObjectUtils.isEmpty(placeId)) {
+            throw new BusinessException("장소가 존재하지 않습니다.", ErrorCode.ENTITY_NOT_FOUND);
         }
 
         Long userId = userService.getUserId(token);
+
         Optional<Place> place = null; // TODO 장소추가되면 장소조회 추가 필요 postRepository.findById(placeId);
         Optional<User> user = userRepository.findById(userId);
 
-        Post newPost = new Post(user.orElseThrow(NullPointerException::new), place.orElseThrow(NullPointerException::new), createPostRequest.getPlaceType());
+        Post newPost = new Post();
+        newPost.createPost(createPostRequest, user.orElseThrow(NullPointerException::new), place.orElseThrow(NullPointerException::new));
         postRepository.save(newPost);
     }
 

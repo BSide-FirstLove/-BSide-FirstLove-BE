@@ -3,6 +3,7 @@ package com.bside.afterschool.post.domain;
 import com.bside.afterschool.common.domain.BaseEntity;
 import com.bside.afterschool.place.domain.Place;
 import com.bside.afterschool.place.enumerate.PlaceType;
+import com.bside.afterschool.post.dto.CreatePostRequest;
 import com.bside.afterschool.user.domain.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
@@ -53,10 +54,13 @@ public class Post extends BaseEntity {
     // TODO 좋아요, 댓글
 
     @Builder
-    public Post(User user, Place place, PlaceType placeType) {
+    public void createPost(CreatePostRequest createPostRequest, User user, Place place) {
+        this.contents = createPostRequest.getContents();
+        this.year = createPostRequest.getYear();
         this.user = user;
         this.place = place;
-        this.placeType = placeType;
+        // TODO this.imgPath = createPostRequest.getImgPathList();
+        // TODO this.hashtag = createPostRequest.getHashtagList();
         user.getPostList().add(this);
         place.getPostList().add(this);
     }
