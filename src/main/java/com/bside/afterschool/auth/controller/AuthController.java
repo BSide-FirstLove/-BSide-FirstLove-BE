@@ -1,14 +1,14 @@
 package com.bside.afterschool.auth.controller;
 
+import com.bside.afterschool.auth.dto.AuthRequest;
+import com.bside.afterschool.auth.dto.AuthResponse;
 import com.bside.afterschool.auth.security.jwt.JwtHeaderUtil;
 import com.bside.afterschool.auth.security.jwt.JwtToken;
 import com.bside.afterschool.auth.security.jwt.JwtTokenProvider;
 import com.bside.afterschool.auth.service.AuthService;
-import com.bside.afterschool.common.util.ApiResponse;
-import com.bside.afterschool.auth.dto.AuthRequest;
-import com.bside.afterschool.auth.dto.AuthResponse;
 import com.bside.afterschool.auth.service.KakaoAuthService;
-import com.bside.afterschool.common.util.CommonRespDto;
+import com.bside.afterschool.common.exception.global.response.ApiResDto;
+import com.bside.afterschool.common.util.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +32,7 @@ public class AuthController {
      */
     @PostMapping(value = "/kakao")
     public ResponseEntity<?> kakaoAuthRequest(@RequestBody AuthRequest authRequest) {
-        return new ResponseEntity<>(new CommonRespDto<>(1, "성공 /auth/kakao success", kakaoAuthService.login(authRequest)), HttpStatus.OK);
+        return new ResponseEntity<>(new ApiResDto<>(1, "성공 /auth/kakao success", kakaoAuthService.login(authRequest)), HttpStatus.OK);
     }
 
     /**
@@ -42,7 +42,7 @@ public class AuthController {
      */
     @PostMapping("/regist")
     public ResponseEntity<?> authRegist(@RequestBody AuthRequest authRequest) {
-        return new ResponseEntity<>(new CommonRespDto<>(1, "성공 /auth/regist success", kakaoAuthService.regist(authRequest)), HttpStatus.OK);
+        return new ResponseEntity<>(new ApiResDto<>(1, "성공 /auth/regist success", kakaoAuthService.regist(authRequest)), HttpStatus.OK);
     }
 
     /**
@@ -60,9 +60,9 @@ public class AuthController {
 
         AuthResponse authResponse = authService.updateToken(authToken);
         if (authResponse == null) { // token 만료
-            return new ResponseEntity<>(new CommonRespDto<>(9999, "HttpStatus.FORBIDDEN 403", null), HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(new ApiResDto<>(9999, "HttpStatus.FORBIDDEN 403", null), HttpStatus.FORBIDDEN);
         }
-        return new ResponseEntity<>(new CommonRespDto<>(1, "HttpStatus.OK 200", authResponse), HttpStatus.OK);
+        return new ResponseEntity<>(new ApiResDto<>(1, "HttpStatus.OK 200", authResponse), HttpStatus.OK);
     }
 
 }

@@ -1,18 +1,17 @@
 package com.bside.afterschool.test;
 
-import com.bside.afterschool.auth.dto.AuthRequest;
-import com.bside.afterschool.auth.dto.AuthResponse;
+import com.bside.afterschool.auth.security.jwt.JwtHeaderUtil;
+import com.bside.afterschool.auth.service.AuthService;
 import com.bside.afterschool.auth.service.KakaoAuthService;
-import com.bside.afterschool.common.util.ApiResponse;
+import com.bside.afterschool.common.exception.global.response.ApiResDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.style.ToStringStyler;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +26,8 @@ public class ApiTestController {
 
     @Autowired
     private KakaoAuthService kakaoAuthService;
+    @Autowired
+    private AuthService authService;
 
     // http://localhost:8000/test/hello
     @GetMapping("/test/hello")
@@ -42,23 +43,22 @@ public class ApiTestController {
         return list;
     }
 
-    // http://localhost:8000/test/auth/kakao
-    @PostMapping("/test/auth/kakao")
-    public ResponseEntity<AuthResponse> kakaoAuthRequestTest(@RequestBody AuthRequest authRequest) {
-        System.out.println("###########################################");
-        System.out.println("authRequest >>>>>>>>>>>>>>> " + authRequest);
-        System.out.println("###########################################");
-        return ApiResponse.success(kakaoAuthService.login(authRequest));
-    }
+    /**
+     * JWT 토큰검증 TEST용
+     * @return
+     */
+    @GetMapping("/test/checkToken")
+    public ResponseEntity<?> checkJwtToken(HttpServletRequest request) {
 
-    // http://localhost:8000/test/auth/regist
-    // 회원가입 테스트
-    @PostMapping("/test/auth/regist")
-    public ResponseEntity<AuthResponse> kakaoAuthRegistTest(@RequestBody AuthRequest authRequest) {
-        System.out.println("###########################################");
-        System.out.println("authRequest >>>>>>>>>>>>>>> " + authRequest);
-        System.out.println("###########################################");
-        return ApiResponse.success(kakaoAuthService.regist(authRequest));
+        String token = JwtHeaderUtil.getAccessToken(request);   // Bearer를 뺀 token값 얻기
+
+        Long memberId = authService.getUserId(token); // token 검증 및 회원id조회
+
+        Map<String, Object> rtnMap = new HashMap<>();
+        rtnMap.put("memberId", memberId == null ? "" : memberId);
+        rtnMap.put("token", token);
+
+        return new ResponseEntity<>(new ApiResDto<>(1, "JWT 토큰 검증 완료", rtnMap), HttpStatus.OK);
     }
 
 }

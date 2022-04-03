@@ -43,6 +43,8 @@ public class JwtToken {
         return this.getTokenClaims() != null;
     }
 
+    // Token 검증
+    // TODO Token값이 다른 경우 생성되는 SignatureException catch처리할지 확인필요
     public Claims getTokenClaims() {
         try {
             return Jwts.parserBuilder()
