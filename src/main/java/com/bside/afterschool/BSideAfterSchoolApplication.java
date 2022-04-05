@@ -8,7 +8,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 public class BSideAfterSchoolApplication {
 
     public static final String APPLICATION_LOCATIONS = "spring.config.location="
-//            + "classpath:application.yml,"
+            + "classpath:application.yml,"
             + "classpath:ncloud.yml";
 
     public static void main(String[] args) {

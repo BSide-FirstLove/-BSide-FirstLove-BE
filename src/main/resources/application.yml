@@ -43,3 +43,9 @@ jwt:
 # TODO ?? ??? ??
 #file:
 #  path: D:/temp/
+logging:
+  level:
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: error
