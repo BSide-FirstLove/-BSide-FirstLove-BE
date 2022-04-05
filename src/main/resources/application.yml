@@ -49,3 +49,9 @@ logging:
       amazonaws:
         util:
           EC2MetadataUtils: error
+
+
+cloud:
+  aws:
+    stack:
+      auto: false
