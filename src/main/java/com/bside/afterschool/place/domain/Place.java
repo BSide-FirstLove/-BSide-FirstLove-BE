@@ -32,15 +32,21 @@ public class Place extends BaseEntity {
     @ManyToOne
     private User user;
 
-    @Column(nullable = false)
+    @Column(name = "google_place_id")
+    private String googlePlaceId;  // 구글 장소ID placeId
+
+    @Column(name = "place_name")
+    private String placeName;  // 장소명
+
+    @Column(name = "place_type", nullable = false)
     @Enumerated(EnumType.STRING)
-    private PlaceType name;        // 학교, 학원명, 추억의장소명
+    private PlaceType placeType;        // 학교, 학원명, 추억의장소 타입
 
     @Column(nullable = false)
-    private Double latitude;    // 위도
+    private String latitude;    // 위도
 
     @Column(nullable = false)
-    private Double longitude;   // 경도
+    private String longitude;   // 경도
 
     // TODO 게시글 리스트
     @OneToMany(mappedBy = "place")

@@ -1,12 +1,7 @@
 package com.bside.afterschool.auth.security.jwt;
 
 import com.bside.afterschool.auth.enumerate.RoleType;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.UnsupportedJwtException;
+import io.jsonwebtoken.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -62,6 +57,9 @@ public class JwtToken {
             log.info("Unsupported JWT token.");
         } catch (IllegalArgumentException e) {
             log.info("JWT token compact of handler are invalid.");
+        } catch (JwtException e) {
+            e.printStackTrace();
+            log.info("INVALID_TOKEN.");
         }
         return null;
     }

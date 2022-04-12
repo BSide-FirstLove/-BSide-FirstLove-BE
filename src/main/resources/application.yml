@@ -30,15 +30,9 @@ jwt:
   secret: bWUtaHllb25pYy1teS1wbGktbWUtaHllb25pYy1teS1wbGktbWUtaHllb25pYy1teS1wbGktbWUtaHllb25pYy1teS1wbGk=
   token-validity-in-seconds: 864000000
 
-# TODO oauth2 KAKAO
-#  security:
-#    oauth2:
-#      client:
-#        registration:
-#          kakao:
-#            client-id:
-#            client-secret:
-#            scope:
+google:
+  key-secert: AIzaSyBJHbFk3U_9El65x8BDSWGudzNb_4hDhnU
+
 
 # TODO ?? ??? ??
 #file:

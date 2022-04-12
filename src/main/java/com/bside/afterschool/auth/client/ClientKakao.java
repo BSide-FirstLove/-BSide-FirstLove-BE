@@ -7,7 +7,6 @@ import com.bside.afterschool.auth.exception.TokenValidFailedException;
 import com.bside.afterschool.user.domain.User;
 import com.bside.afterschool.user.enumerate.UserProvider;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -51,7 +50,6 @@ public class ClientKakao implements ClientProxy {
                     .name(authRequest.getNickname())
                     .enterYear(authRequest.getEnterYear())
                     .endYear(authRequest.getEndYear())
-                    .schoolName(authRequest.getSchoolName())
                     .description(authRequest.getDescription())
                     .job(authRequest.getJob())
                     .instagramUrl(authRequest.getInstagramUrl())

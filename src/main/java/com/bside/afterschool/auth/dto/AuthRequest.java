@@ -13,13 +13,12 @@ public class AuthRequest {
 
     // TODO 회원가입 추가입력항목
     private String nickname;        // 회원명
-    private String schoolName;  // 학교명
     private String enterYear;   // 입학연도
     private String endYear;     // 졸업연도
     private String instagramUrl;
     private String job;         // 직업
     private String description; // 하고싶은 말
-
+    private String placeId;     // 구글 placd id
 
     private Boolean isRegist;
 }

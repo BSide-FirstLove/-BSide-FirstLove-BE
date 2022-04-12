@@ -5,6 +5,7 @@ import com.bside.afterschool.common.domain.BaseEntity;
 import com.bside.afterschool.place.domain.Place;
 import com.bside.afterschool.post.domain.Post;
 import com.bside.afterschool.user.enumerate.UserProvider;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,9 +30,11 @@ public class User extends BaseEntity {
     @Column(name = "user_id")
     private Long id;            // id
 
+    @JsonIgnoreProperties({"user"})
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Place> placeList = new ArrayList<>();
 
+    @JsonIgnoreProperties({"user"})
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Post> postList = new ArrayList<>();
 
@@ -54,9 +57,6 @@ public class User extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "role_type", nullable = false)
     private RoleType roleType;
-
-    @Column(name = "school_name")
-    private String schoolName;  // TODO 학교명 -> 유저,학교 매핑테이블 생성 시 수정필요
 
     @Column(name = "enter_year")
     private String enterYear;   // 입학연도
