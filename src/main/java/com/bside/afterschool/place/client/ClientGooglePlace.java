@@ -30,7 +30,10 @@ public class ClientGooglePlace {
      */
     public Place getPlaceData(PlaceRequest placeRequest) {
         GooglePlaceResponse googlePlaceResponse = webClient.get()
-                .uri("https://maps.googleapis.com/maps/api/place/details/json", builder -> builder.queryParam("place_id", placeRequest.getPlaceId()).queryParam("key", googlePlaceKey).build())
+                .uri("https://maps.googleapis.com/maps/api/place/details/json", builder -> builder
+                        .queryParam("place_id", placeRequest.getPlaceId())
+                        .queryParam("key", googlePlaceKey)
+                        .queryParam("language", "ko").build())
                 .retrieve()
                 .onStatus(HttpStatus::is4xxClientError, response -> Mono.error(new TokenValidFailedException("place_id Access Token is unauthorized")))
                 .onStatus(HttpStatus::is5xxServerError, response -> Mono.error(new TokenValidFailedException("Internal Server Error")))
