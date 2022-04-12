@@ -24,7 +24,7 @@ public class ClientGooglePlace {
     private WebClient webClient;
 
     /**
-     *
+     * 구글 place 조회
      * @param placeRequest
      * @return
      */
@@ -35,7 +35,7 @@ public class ClientGooglePlace {
                         .queryParam("key", googlePlaceKey)
                         .queryParam("language", "ko").build())
                 .retrieve()
-                .onStatus(HttpStatus::is4xxClientError, response -> Mono.error(new TokenValidFailedException("place_id Access Token is unauthorized")))
+                .onStatus(HttpStatus::is4xxClientError, response -> Mono.error(new TokenValidFailedException("place_id Access is unauthorized")))
                 .onStatus(HttpStatus::is5xxServerError, response -> Mono.error(new TokenValidFailedException("Internal Server Error")))
                 .bodyToMono(GooglePlaceResponse.class)
                 .block();
@@ -44,7 +44,7 @@ public class ClientGooglePlace {
         return Place.builder()
                 .googlePlaceId(googlePlaceResponse.getResult().getPlaceId())
                 .placeName(googlePlaceResponse.getResult().getName())
-                 .latitude(googlePlaceResponse.getResult().getGeometry().getLocation().getLat())
+                .latitude(googlePlaceResponse.getResult().getGeometry().getLocation().getLat())
                 .longitude(googlePlaceResponse.getResult().getGeometry().getLocation().getLng())
                 .user(placeRequest.getUser())
                 .placeType(PlaceType.SCHOOL)    // TODO 현재 학교로 하드코딩

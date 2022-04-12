@@ -86,6 +86,10 @@ public class KakaoAuthService {
 
         String socialId = kakaoMember.getSocialId();
 
+        if(ObjectUtils.isEmpty(socialId)){
+            throw new BusinessException("kakao socialId 조회 중 오류가 발생했습니다.", ErrorCode.INVALID_INPUT_VALUE);
+        }
+
         // 앱토근생성
         JwtToken appToken = jwtTokenProvider.createUserAppToken(socialId);
 

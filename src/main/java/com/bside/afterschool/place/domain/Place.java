@@ -40,7 +40,7 @@ public class Place extends BaseEntity {
 
     @Column(name = "place_type", nullable = false)
     @Enumerated(EnumType.STRING)
-    private PlaceType placeType;        // 학교, 학원명, 추억의장소 타입
+    private PlaceType placeType;    // 장소타입
 
     @Column(nullable = false)
     private String latitude;    // 위도
